@@ -2,25 +2,53 @@ package com.wtxcompsci;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
+import static java.lang.System.out;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        Scanner inf = new Scanner(new File(("input.dat")));
+        Scanner inf = new Scanner(new File(("sample.dat")));
 
-        long ans = 1L;
+        int ans = 0;
 
-        ArrayList<String> map = new ArrayList<>();
+        String target = "shiny gold";
+
+        ArrayList<String> data = new ArrayList<>();
 
         while(inf.hasNext()){
-            map.add(inf.nextLine());
+            data.add(inf.nextLine());
         }
 
+        Map<String, ArrayList<String>> cmap = new TreeMap<>();
+        for(String s: data){
+            String[] kp = s.split(" bags contain ");
+            String[] c = kp[1].split(" bags?, ");
+            ArrayList<String> l = new ArrayList<>();
+            for(String i:c){
+                String[] trim = i.split(" ");
+                l.add((trim[1] +" "+ trim[2]));
+            }
+            cmap.put(kp[0],l);
+        }
+
+        Set<String> bags = new TreeSet<>();
+        for(String k: cmap.keySet()){
+            if(cmap.get(k).contains(target)) {
+                out.println("found in another bag: "+k);
+                bags.add(k);
+                checkForMore(bags,k,cmap);
+            }
+        }
         
-        
-        
-        System.out.println(ans);
+        out.println(ans);
     }
+
+    public static void checkForMore(Set<String> b, String k, Map<String,ArrayList<String>> cm){
+
+
+    }
+
+
+
 }
