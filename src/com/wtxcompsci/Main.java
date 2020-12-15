@@ -8,9 +8,9 @@ import static java.lang.System.out;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        Scanner inf = new Scanner(new File(("sample.dat")));
+        Scanner inf = new Scanner(new File(("input.dat")));
 
-        int ans = 0;
+        long ans = 1L;
 
         String target = "shiny gold";
 
@@ -20,25 +20,27 @@ public class Main {
             data.add(inf.nextLine());
         }
 
-        Map<String, ArrayList<String>> cmap = new TreeMap<>();
+        Map<String, TreeMap<String, Integer>> cmap = new TreeMap<>();
         for(String s: data){
             String[] kp = s.split(" bags contain ");
             String[] c = kp[1].split(" bags?, ");
-            ArrayList<String> l = new ArrayList<>();
+            TreeMap<String, Integer> l = new TreeMap<>();
             for(String i:c){
                 String[] trim = i.split(" ");
-                l.add((trim[1] +" "+ trim[2]));
+                l.put((trim[1] +" "+ trim[2]), (trim[0].equals("no")?0:Integer.parseInt(trim[0])));
             }
             cmap.put(kp[0],l);
         }
 
         Set<String> bags = new TreeSet<>();
         for(String k: cmap.keySet()){
-            if(cmap.get(k).contains(target)) {
-                out.println("found in another bag: "+k);
+            if(((TreeMap<String,Integer>)cmap.get(k)).keySet.contains(target)) {
+//                out.println("found in another bag: "+k);
                 bags.add(k);
-                List<String> bglist=new ArrayList<>();
-                bglist.addAll( cmap.get(k));
+//                out.println(bags);
+
+                checkForMore(bags, k, cmap);
+
 
             }
         }
@@ -46,11 +48,14 @@ public class Main {
         out.println(ans);
     }
 
-    public static void checkForMore(Set<String> b, String k, Map<String,ArrayList<String>> cm){
-        if(b.contains())
+    public static void checkForMore(Set<String> b, String tar, Map<String,ArrayList<String>> cm){
+//        out.println(b + " "+ tar);
+
         for(String x: cm.keySet()){
-            if(cm.get(x).contains(k)) {
-                out.println("found in another bag: "+k);
+            if(cm.get(x).contains(tar)) {
+//                out.println("found deeper in another bag: "+x);
+                if(b.contains(x))
+                    continue;
                 b.add(x);
                 checkForMore(b, x, cm);
             }
