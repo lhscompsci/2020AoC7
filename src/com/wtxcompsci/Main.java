@@ -37,7 +37,9 @@ public class Main {
             if(cmap.get(k).contains(target)) {
                 out.println("found in another bag: "+k);
                 bags.add(k);
-                checkForMore(bags,k,cmap);
+                List<String> bglist=new ArrayList<>();
+                bglist.addAll( cmap.get(k));
+
             }
         }
         
@@ -45,8 +47,14 @@ public class Main {
     }
 
     public static void checkForMore(Set<String> b, String k, Map<String,ArrayList<String>> cm){
-
-
+        if(b.contains())
+        for(String x: cm.keySet()){
+            if(cm.get(x).contains(k)) {
+                out.println("found in another bag: "+k);
+                b.add(x);
+                checkForMore(b, x, cm);
+            }
+        }
     }
 
 
