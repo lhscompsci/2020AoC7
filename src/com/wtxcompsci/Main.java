@@ -34,7 +34,8 @@ public class Main {
 
         Set<String> bags = new TreeSet<>();
         for(String k: cmap.keySet()){
-            if(((TreeMap<String,Integer>)cmap.get(k)).keySet.contains(target)) {
+            TreeMap<String,Integer> bob = cmap.get(k);
+            if((bob).keySet().contains(target)) {
 //                out.println("found in another bag: "+k);
                 bags.add(k);
 //                out.println(bags);
@@ -48,7 +49,7 @@ public class Main {
         out.println(ans);
     }
 
-    public static void checkForMore(Set<String> b, String tar, Map<String,ArrayList<String>> cm){
+    public static long checkForMore(Set<String> b, String tar, Map<String,ArrayList<String>> cm){
 //        out.println(b + " "+ tar);
 
         for(String x: cm.keySet()){
@@ -61,7 +62,15 @@ public class Main {
             }
         }
     }
+/*
+    long val = 0;
+    for (String g: bob.keySet()){
+     if(g.equals("other bags."))
+         return 1L;
 
 
+
+
+*/
 
 }
